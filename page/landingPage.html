@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="text-center">
+            <h2 class="mb-4">Please Enter The Latitude and Longitude Values</h2>
+            <form method="POST" action="/submit" id="coordForm">
+                <div class="mb-3">
+                    <label for="latitude" class="form-label">Latitude:</label><br>
+                    <input class="form-control" style="width: 700px;" id="latitude" name="latitude" type="text" placeholder="e.g., 40.7128" />
+                    <small class="text-danger" id="latError" style="display:none;">Please enter a valid decimal number (-90 to 90)</small>
+                </div>
+                <div class="mb-3">
+                    <label for="longitude" class="form-label">Longitude:</label><br>
+                    <input class="form-control" style="width: 700px;" id="longitude" name="longitude" type="text" placeholder="e.g., -74.0060" />
+                    <small class="text-danger" id="lonError" style="display:none;">Please enter a valid decimal number (-180 to 180)</small>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submitBtn" disabled>Submit</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const latInput = document.getElementById('latitude');
+        const lonInput = document.getElementById('longitude');
+        const submitBtn = document.getElementById('submitBtn');
+        const latError = document.getElementById('latError');
+        const lonError = document.getElementById('lonError');
+
+        function validateLatitude(value) {
+            const num = parseFloat(value);
+            return !isNaN(num) && num >= -90 && num <= 90;
+        }
+
+        function validateLongitude(value) {
+            const num = parseFloat(value);
+            return !isNaN(num) && num >= -180 && num <= 180;
+        }
+
+        function validateForm() {
+            const latValid = latInput.value.trim() === '' || validateLatitude(latInput.value);
+            const lonValid = lonInput.value.trim() === '' || validateLongitude(lonInput.value);
+
+            latError.style.display = latInput.value.trim() !== '' && !latValid ? 'block' : 'none';
+            lonError.style.display = lonInput.value.trim() !== '' && !lonValid ? 'block' : 'none';
+
+            submitBtn.disabled = !latValid || !lonValid || latInput.value.trim() === '' || lonInput.value.trim() === '';
+        }
+
+        latInput.addEventListener('input', validateForm);
+        lonInput.addEventListener('input', validateForm);
+    </script>
+</body>
+</html>
