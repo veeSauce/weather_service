@@ -123,10 +123,5 @@ This project is provided as-is for educational purposes.
 
 Feel free to fork and submit pull requests for any improvements!
 
-## 📞 Contact
-
-For questions or feedback, please reach out.
-
----
 
 **Last Updated**: February 5, 2026
